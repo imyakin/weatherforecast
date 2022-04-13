@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 interface HeaderProps{
     city: string;
     openModal: () => void;

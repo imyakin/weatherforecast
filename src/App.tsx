@@ -15,7 +15,7 @@ function App() {
   const [city, setCity] = useState('Yerevan,AR')
 
   const cityRef = useRef('')
-  console.log(cityRef)
+
   useEffect(() => {
     const getData = async () => {
       const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=EF7TBU9J5UWC9VYETJV7N55UG`
@@ -41,7 +41,6 @@ function App() {
   }
   const cityHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     cityRef.current = e.target.value
-    console.log(cityRef)
   }
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value)

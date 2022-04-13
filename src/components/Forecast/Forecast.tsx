@@ -37,6 +37,7 @@ const Forecast: React.FC<ForecastProps> = ({wdata}) => {
                             <h5 className="card-title">{days[new Date(day.datetime).getDay()]}</h5>
                             <h6 className="card-title">{day.datetime}</h6>
                         </div>
+                        <img src={require(`../../images/2nd Set - Color/${day.icon}.png`)} style={{width:'50px'}}/>
                         <div>
                             <button type="button" className="btn btn-primary position-relative">
                                 Temp

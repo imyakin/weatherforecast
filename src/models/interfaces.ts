@@ -2,7 +2,8 @@
 export interface IDay {
     datetime: string;
     description: string;
-    temp: number
+    temp: number;
+    icon: string;
 }
 
 export interface Data {
