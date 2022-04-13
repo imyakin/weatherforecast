@@ -7,7 +7,7 @@ interface ForecastProps{
 
 const Forecast: React.FC<ForecastProps> = ({wdata}) => {
     const [currPage, setCurrPage] = useState(1)
-    const daysPerPage = 3
+    const [daysPerPage, setDaysPerPage] = useState(3)
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wedsneday', 'Thursday', 'Friday', 'Saturday']
     const pages = []
     const lastIndex = currPage * daysPerPage
@@ -28,16 +28,16 @@ const Forecast: React.FC<ForecastProps> = ({wdata}) => {
 
   return (
       <>
-        <div className="d-flex justify-content-center mb-5">
+        <div className="d-flex justify-content-center flex-wrap mb-5">
         {wdata && currData.map(day => (
-            <div key={day.datetime} className="card text-dark bg-light border-dark" style={{width: '18rem', marginRight: '1rem', height: '150px'}}>
+            <div key={day.datetime} className="card text-dark bg-light border-dark mb-2" style={{width: '18rem', marginRight: '1rem', height: '150px'}}>
                 <div className="card-body">
                     <div className='d-flex justify-content-between'>
                         <div className='d-flex flex-column align-items-start'>
                             <h5 className="card-title">{days[new Date(day.datetime).getDay()]}</h5>
                             <h6 className="card-title">{day.datetime}</h6>
                         </div>
-                        <img src={require(`../../images/2nd Set - Color/${day.icon}.png`)} style={{width:'50px'}}/>
+                        <img src={require(`../../images/2nd Set - Color/${day.icon}.png`)} style={{width:'18%'}}/>
                         <div>
                             <button type="button" className="btn btn-primary position-relative">
                                 Temp
@@ -73,6 +73,15 @@ const Forecast: React.FC<ForecastProps> = ({wdata}) => {
             </a>
         </li>
     </ul>
+    <div className='d-flex justify-content-center align-items-center'>
+    <span>days on page:</span>
+    <select onChange={(e) => setDaysPerPage(parseInt(e.target.value))} className="form-select" id="inputGroupSelect01" style={{maxWidth: "3%", height: "30px"}}>
+        <option defaultValue={3}>3</option>
+        <option value="6">6</option>
+        <option value="9">9</option>
+        <option value="15">15</option>
+    </select>
+    </div>
       </>
   )
 }
