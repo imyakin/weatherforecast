@@ -3,21 +3,33 @@ import React, { ReactEventHandler, useEffect, useState } from 'react';
 import './App.css';
 import Filter from './components/Filter/Filter';
 import Forecast from './components/Forecast/Forecast';
+import Header from './components/Header/Header';
+import Modal from './components/Modal/Modal';
 import {IDay } from './models/interfaces';
 
 
 function App() {
   const [wdata, setwData] = useState([] as IDay[])
   const [filter, setFilter] = useState('')
+  const [isOpenModel, setIsOpenModal] = useState(false)
+  const [city, setCity] = useState('Yerevan,AR')
 
   useEffect(() => {
     const getData = async () => {
-      const url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Yerevan,AR?key=EF7TBU9J5UWC9VYETJV7N55UG'
+      const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=EF7TBU9J5UWC9VYETJV7N55UG`
       const {data} = await axios.get(url)
       setwData(data.days)
     }
     getData()
-  }, [])
+  }, [city])
+
+  const openModal = () => {
+    setIsOpenModal(true)
+  }
+
+  const closeModal = () => {
+    setIsOpenModal(false)
+  }
 
   const filtered = (filter: string) => {
     return filter 
@@ -25,7 +37,9 @@ function App() {
       : wdata
 
   }
-
+  const cityHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCity(e.target.value)
+  }
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value)
   }
@@ -33,9 +47,9 @@ function App() {
   let filteredDays = filtered(filter)
 
   return (
-    <div className="App">
-      <h1>Weather Forecast</h1>
-      <h4>Yerevan</h4>
+    <div className="App mt-3">
+      <Header openModal={openModal} city={city}/>
+      {isOpenModel && <Modal closeModal={closeModal} cityHandler={cityHandler}/>}
       <Filter filter={filter} onChange={changeHandler}/>
       <Forecast wdata={filteredDays}/>
     </div>
