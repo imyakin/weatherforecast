@@ -8,7 +8,7 @@ interface ModalProps{
 
 const Modal: React.FC<ModalProps> = ({closeModal, cityHandler, saveChanges}) => {
   return (
-    <div className="modal" style={{display: "block"}}>
+    <div className="modal" style={{display: "block", paddingTop: "10%"}}>
         <div className="modal-dialog">
             <div className="modal-content">
             <div className="modal-header">
