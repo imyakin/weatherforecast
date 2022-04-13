@@ -3,9 +3,10 @@ import React from 'react'
 interface ModalProps{
     closeModal: () => void;
     cityHandler: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    saveChanges: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({closeModal, cityHandler}) => {
+const Modal: React.FC<ModalProps> = ({closeModal, cityHandler, saveChanges}) => {
   return (
     <div className="modal" style={{display: "block"}}>
         <div className="modal-dialog">
@@ -25,6 +26,7 @@ const Modal: React.FC<ModalProps> = ({closeModal, cityHandler}) => {
             </div>
             <div className="modal-footer">
                 <button onClick={closeModal} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onClick={saveChanges} type="button" className="btn btn-primary">Save changes</button>
             </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { ReactEventHandler, useEffect, useState } from 'react';
+import React, { ReactEventHandler, useEffect, useRef, useState } from 'react';
 import './App.css';
 import Filter from './components/Filter/Filter';
 import Forecast from './components/Forecast/Forecast';
@@ -14,6 +14,8 @@ function App() {
   const [isOpenModel, setIsOpenModal] = useState(false)
   const [city, setCity] = useState('Yerevan,AR')
 
+  const cityRef = useRef('')
+  console.log(cityRef)
   useEffect(() => {
     const getData = async () => {
       const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=EF7TBU9J5UWC9VYETJV7N55UG`
@@ -38,10 +40,16 @@ function App() {
 
   }
   const cityHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCity(e.target.value)
+    cityRef.current = e.target.value
+    console.log(cityRef)
   }
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value)
+  }
+
+  const saveChanges = () => {
+    setCity(cityRef.current)
+    closeModal()
   }
 
   let filteredDays = filtered(filter)
@@ -49,7 +57,7 @@ function App() {
   return (
     <div className="App mt-3">
       <Header openModal={openModal} city={city}/>
-      {isOpenModel && <Modal closeModal={closeModal} cityHandler={cityHandler}/>}
+      {isOpenModel && <Modal closeModal={closeModal} cityHandler={cityHandler} saveChanges={saveChanges}/>}
       <Filter filter={filter} onChange={changeHandler}/>
       <Forecast wdata={filteredDays}/>
     </div>
