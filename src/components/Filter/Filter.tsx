@@ -12,7 +12,7 @@ const Filter: React.FC<FilterProps> = ({filter, onChange}) => {
           <p>Filter by date</p>
           <input
             className='text-center'
-            type={'text'} 
+            type={'date'} 
             value={filter} 
             onChange={onChange}
             placeholder={'type date here'}
